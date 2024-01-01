@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 
 const VideoPlayer = () => {
   const [searchParams] = useSearchParams()
-  console.log(searchParams.get('v'));
+  // console.log(searchParams.get('v'));
   return (
     <div>
       <iframe
