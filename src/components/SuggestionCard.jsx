@@ -1,13 +1,13 @@
 import React from "react";
 
-const VideoCard = ({ video }) => {
+const SuggestionCard = ({ video }) => {
   const { snippet, statistics, contentDetails } = video;
 
   return (
-    <div className="w-80 m-2 pl-2 pt-2">
-      <div className="rounded-xl relative">
+    <div className="w-90 m-2 pl-6 pt-2 flex flex-wrap">
+      <div className="rounded-xl w-38 relative">
         <img
-          className="rounded-lg w-80"
+          className="rounded-lg w-36"
           src={snippet?.thumbnails?.medium?.url}
           alt={snippet?.title}
         />
@@ -15,9 +15,9 @@ const VideoCard = ({ video }) => {
           {decodeDuration(contentDetails.duration)}
         </span>
       </div>
-      <div>
-        <h1 className="text-base font-semibold">{snippet.title}</h1>
-        <p className="font-light text-sm">{snippet.channelTitle}</p>
+      <div className="w-52 px-1">
+        <h1 className="font-light text-sm">{snippet.title}</h1>
+        <p className="font-light text-xs">{snippet.channelTitle}</p>
         <div className="flex justify-between">
           <span className="font-light text-sm">
             {formatViewCount(statistics.viewCount)} views
@@ -29,7 +29,7 @@ const VideoCard = ({ video }) => {
   );
 };
 
-export default VideoCard;
+export default SuggestionCard;
 
 function timeAgo(dateString) {
   const currentDate = new Date();
@@ -48,12 +48,13 @@ function timeAgo(dateString) {
   if (hours < 24) return `${hours} hours ago`;
   if (days < 30) return `${days} days ago`;
   if (months < 12) return `${months} months ago`;
-
+  
   return `${years} years ago`;
 }
 
 function formatViewCount(viewCount) {
   const count = parseInt(viewCount);
+
   if (count >= 1000000) return `${(count / 1000000).toFixed(1)}m`;
   if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;
 

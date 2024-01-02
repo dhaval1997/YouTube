@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 
 const listItems = [
@@ -17,25 +18,21 @@ const SideBar = () => {
   const isMenuOpen = useSelector((store) => store.general.isMenuOpen);
 
   return (
-    <>
-      {isMenuOpen && (
-        <div className="w-48 shadow">
-          <div className="px-2 py-2">
-            <h1 className="font-bold mb-2">Explore</h1>
-            <ul>
-              {listItems.map((item, index) => (
-                <li
-                  className="px-5 py-1.5 hover:bg-gray-100 cursor-pointer rounded-lg"
-                  key={index}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
-    </>
+    <div className={`w-48 shadow ${isMenuOpen ? 'block' : 'hidden'}`}>
+      <div className="px-4 py-3">
+        <h1 className="font-bold text-lg mb-2">Explore</h1>
+        <ul>
+          {listItems.map((item, index) => (
+            <li
+              key={index}
+              className="px-4 py-2 hover:bg-gray-100 cursor-pointer rounded-lg"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 

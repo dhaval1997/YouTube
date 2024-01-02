@@ -1,13 +1,13 @@
-import logo from "../assets/pngwing.png";
-import { LuMenu } from "react-icons/lu";
-import { IoSearch } from "react-icons/io5";
-import { FaUserCircle } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/generalSlice";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { LuMenu } from "react-icons/lu";
+import { IoSearch } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
 import { YOUTUBE_SEARCH_SUGGESTION_API } from "../utils/constant";
 import { cacheResults } from "../utils/searchSlice";
+import logo from "../assets/pngwing.png";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,7 +24,6 @@ const Header = () => {
     console.log("API called:- ", searchQuery);
     const data = await fetch(YOUTUBE_SEARCH_SUGGESTION_API + searchQuery);
     const json = await data.json();
-    // console.log(json);
     setSuggestions(json[1]);
     dispatch(
       cacheResults({
@@ -48,7 +47,7 @@ const Header = () => {
   }, [searchQuery]);
 
   return (
-    <div className="flex justify-between px-4 shadow-sm">
+    <div className="flex justify-between items-center px-4 shadow-sm bg-white">
       <div className="flex items-center gap-2">
         <LuMenu
           onClick={handleToggleMenu}
@@ -58,20 +57,20 @@ const Header = () => {
           <img src={logo} className="h-14 cursor-pointer" alt="logo" />
         </Link>
       </div>
-      <div className="flex flex-wrap relative items-center">
+      <div className="relative flex items-center">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setShowSuggestions(false)}
-          className="border border-gray-300 outline-gray-400 rounded-l-full px-4 py-1 w-80"
+          className="border outline-none focus:border-blue-500 rounded-l-full px-4 py-1 w-80"
         />
-        <button className="border border-gray-300 bg-gray-100 px-4 py-2 rounded-r-full">
+        <button className="border bg-gray-100 px-4 py-2 rounded-r-full focus:outline-none">
           <IoSearch />
         </button>
         {showSuggestions && (
-          <ul className="absolute w-80 rounded-lg border border-gray-300 px-2 py-1 bg-white top-12 z-10">
+          <ul className="absolute w-80 top-12 border rounded-lg border-gray-300 bg-white px-2 py-1 z-10">
             {suggestions.map((s) => (
               <li
                 key={s}
