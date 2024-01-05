@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { YOUTUBE_VIDEO_API } from "../utils/constant";
 import VideoCard from "./VideoCard";
 import { Link } from "react-router-dom";
+import Shimmer from "../ui/Shimmer";
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
@@ -17,10 +18,14 @@ const VideoContainer = () => {
     setVideos(data.items);
   };
 
-  return (
+  return videos.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="flex flex-wrap">
       {videos.map((video) => (
-        <Link to={'/watch?v='+video.id} key={video.id}><VideoCard video={video} /></Link>
+        <Link to={"/watch?v=" + video.id} key={video.id}>
+          <VideoCard video={video} />
+        </Link>
       ))}
     </div>
   );

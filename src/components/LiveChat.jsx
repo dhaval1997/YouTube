@@ -19,14 +19,14 @@ const LiveChat = () => {
           message: generateRandomMessage(),
         })
       );
-    }, 500);
+    }, 300);
 
     return () => clearInterval(i);
   }, []);
 
   return (
     <>
-      <div className="h-[520px] w-full mx-4 rounded-lg flex flex-col-reverse bg-white overflow-y-scroll px-2 py-2 border border-gray-600">
+      <div className="h-[520px] w-full mx-4 rounded-lg flex flex-col-reverse bg-white overflow-y-scroll scroll px-2 py-2 border border-gray-600">
         {chatMessages.map((c, i) => (
           <ChatMessage key={i} name={c.name} message={c.message} />
         ))}

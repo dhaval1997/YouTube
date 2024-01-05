@@ -16,13 +16,13 @@ const VideoCard = ({ video }) => {
         </span>
       </div>
       <div>
-        <h1 className="text-base font-semibold">{snippet.title}</h1>
-        <p className="font-light text-sm">{snippet.channelTitle}</p>
+        <h1 className="font-medium">{snippet.title}</h1>
+        <p className="text-sm font-normal">{snippet.channelTitle}</p>
         <div className="flex justify-between">
-          <span className="font-light text-sm">
+          <span className="text-sm font-normal">
             {formatViewCount(statistics.viewCount)} views
           </span>
-          <span className="font-light text-sm">{timeAgo(snippet.publishedAt)}</span>
+          <span className="font-normal text-sm">{timeAgo(snippet.publishedAt)}</span>
         </div>
       </div>
     </div>

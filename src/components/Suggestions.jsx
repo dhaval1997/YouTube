@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { YOUTUBE_VIDEO_API } from "../utils/constant";
-import VideoCard from "./VideoCard";
 import { Link } from "react-router-dom";
 import SuggestionCard from "./SuggestionCard";
+import { ShimmerVertical } from "../ui/Shimmer";
 
 const Suggestions = () => {
   const [videos, setVideos] = useState([]);
@@ -18,7 +18,9 @@ const Suggestions = () => {
     setVideos(data.items);
   };
 
-  return (
+  return videos.length === 0 ? (
+    <ShimmerVertical />
+  ) : (
     <div className="flex flex-col">
       {videos.map((video) => (
         <Link to={"/watch?v=" + video.id} key={video.id}>
