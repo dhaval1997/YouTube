@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
-import { YOUTUBE_VIDEO_API } from "../utils/constant";
-import VideoCard from "./VideoCard";
 import { Link } from "react-router-dom";
 import Shimmer from "../ui/Shimmer";
+import VideoCard from "./VideoCard";
+import useVideoData from "../hooks/useVideoData";
 
 const VideoContainer = () => {
-  const [videos, setVideos] = useState([]);
+  const { videos, loading } = useVideoData();
 
-  useEffect(() => {
-    getVideos();
-  }, []);
-
-  const getVideos = async () => {
-    const response = await fetch(YOUTUBE_VIDEO_API);
-    const data = await response.json();
-    // console.log(data);
-    setVideos(data.items);
-  };
-
-  return videos.length === 0 ? (
+  return loading ? (
     <Shimmer />
   ) : (
     <div className="flex flex-wrap">

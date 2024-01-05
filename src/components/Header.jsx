@@ -1,70 +1,30 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/generalSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LuMenu } from "react-icons/lu";
 import { IoSearch } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { RiVideoAddFill } from "react-icons/ri";
 import { MdNotificationsActive } from "react-icons/md";
-import {
-  YOUTUBE_SEARCH_SUGGESTION_API,
-  YOUTUBE_SEARCH_SUGGESTION_API_1,
-} from "../utils/constant";
-import { cacheResults } from "../utils/searchSlice";
 import logo from "../assets/pngwing.png";
+import useSearch from "../hooks/useSearch";
 
 const Header = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const dispatch = useDispatch();
-  const searchCache = useSelector((store) => store.search);
-  const navigate = useNavigate();
 
   const handleToggleMenu = () => {
     dispatch(toggleMenu());
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log("Navigate");
-    navigate(`/results?search_query=${encodeURIComponent(searchQuery)}`);
-    setShowSuggestions(false);
-  };
-
-  const handleClick = (suggestion) => {
-    // console.log("clicked");
-    setSearchQuery(suggestion);
-    setShowSuggestions(false);
-  };
-
-  const getSearchSuggestions = async () => {
-    console.log("API called:- ", searchQuery);
-    const data = await fetch(YOUTUBE_SEARCH_SUGGESTION_API + searchQuery);
-    const json = await data.json();
-    setSuggestions(json[1]);
-    dispatch(
-      cacheResults({
-        [searchQuery]: json[1],
-      })
-    );
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchCache[searchQuery]) {
-        setSuggestions(searchCache[searchQuery]);
-      } else {
-        getSearchSuggestions();
-      }
-    }, 150);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery]);
-
+  const {
+    searchQuery,
+    setSearchQuery,
+    suggestions,
+    handleSubmit,
+    showSuggestions,
+    setShowSuggestions,
+    handleSuggestionClick,
+  } = useSearch();
   return (
     <div className="flex justify-between items-center px-6 shadow-sm bg-white">
       <div className="flex items-center gap-2">
@@ -107,7 +67,7 @@ const Header = () => {
                       /%20/g,
                       "+"
                     )}`}
-                    onClick={() => handleClick(s)}
+                    onClick={() => handleSuggestionClick(s)}
                   >
                     {s}
                   </Link>
