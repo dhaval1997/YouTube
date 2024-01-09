@@ -52,9 +52,10 @@ const useSearch = () => {
       if (searchCache[searchQuery]) {
         setSuggestions(searchCache[searchQuery]);
       } else {
+        console.log(searchQuery);
         getSearchSuggestions();
       }
-    }, 150);
+    }, 200);
 
     return () => {
       clearTimeout(timer);

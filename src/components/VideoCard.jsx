@@ -76,5 +76,5 @@ function decodeDuration(durationString) {
   const timestamp = new Date(0);
   timestamp.setSeconds(totalSeconds);
 
-  return timestamp.toISOString().substr(11, 8);
+  return timestamp.toISOString().substr(14, 5);
 }

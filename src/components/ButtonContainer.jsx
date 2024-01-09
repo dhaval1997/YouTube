@@ -15,7 +15,7 @@ const buttonList = [
 
 const ButtonContainer = () => {
   return (
-    <div className="overscroll">
+    <div className="overscroll mx-6 mt-2">
       {buttonList.map((button, index) => (
         <Button key={index} children={button} />
       ))}

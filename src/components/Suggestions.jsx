@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
-import { YOUTUBE_VIDEO_API } from "../utils/constant";
 import { Link } from "react-router-dom";
 import SuggestionCard from "./SuggestionCard";
 import { ShimmerVertical } from "../ui/Shimmer";
+import useVideoData from "../hooks/useVideoData";
 
 const Suggestions = () => {
-  const [videos, setVideos] = useState([]);
+  const { videos, loading } = useVideoData();
 
-  useEffect(() => {
-    getVideos();
-  }, []);
-
-  const getVideos = async () => {
-    const response = await fetch(YOUTUBE_VIDEO_API);
-    const data = await response.json();
-    // console.log(data);
-    setVideos(data.items);
-  };
-
-  return videos.length === 0 ? (
+  return loading ? (
     <ShimmerVertical />
   ) : (
     <div className="flex flex-col">
